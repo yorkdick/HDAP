@@ -1,25 +1,17 @@
 package com.myself.hdap.server.deployment;
 
+import com.myself.hdap.server.context.HotDeployLoader;
+
 public class DeployManager {
-	public final static  DeployManager dm = new DeployManager();
-	
-	private DeployManager(){
-		
+	public static void deploy(String path){
+		HotDeployLoader.getInstance().deployJar(path);
 	}
 	
-	public static DeployManager getInstance(){
-		return dm;
+	public static void unDeploy(String id){
+		HotDeployLoader.getInstance().unDeployJar(id);
 	}
 	
-	public void deploy(){
-		// TODO Auto-generated catch block
-	}
-	
-	public void unDeploy(){
-		// TODO Auto-generated catch block
-	}
-	
-	public void listDeploy(){
-		// TODO Auto-generated catch block
+	public static void listDeploy(){
+		// TODO listDeploy
 	}
 }

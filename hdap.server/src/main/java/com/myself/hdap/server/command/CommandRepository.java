@@ -24,4 +24,12 @@ public class CommandRepository {
 		commands.put(command.getCommandKey(), command);
 		commandParams.put(command.getCommandKey(), params);
 	}
+	
+	public static Map<String,Command> getAllCommands() {
+		return commands;
+	}
+	
+	public static Map<String,List<CommandParam>> getAllCommandParams(){
+		return commandParams;
+	}
 }
