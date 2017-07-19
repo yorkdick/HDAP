@@ -3,6 +3,7 @@ package com.myself.hdap.server;
 import java.util.Scanner;
 
 import com.myself.hdap.server.adapter.CommandAdapter;
+import com.myself.hdap.server.context.ContextInit;
 
 public class ServerStarter {
 	private final static ServerStarter starter = new ServerStarter();
@@ -19,6 +20,9 @@ public class ServerStarter {
 	
 	public synchronized void startServer(){
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server starting ........");
+		
+		ContextInit.initCommand();
+		
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server started  ........");
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server waiting for command  ........");
 

@@ -13,6 +13,7 @@ public class HotDeployLoader {
 	
 	public void deployJar(String path) {
 		// TODO deployJar
+		System.out.println("deploy jar:"+path);
 	}
 	
 	public void unDeployJar(String key) {

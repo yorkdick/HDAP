@@ -14,10 +14,6 @@ import com.myself.hdap.server.command.CommandParam;
 import com.myself.hdap.server.command.CommandRepository;
 
 public class CommandLoader {
-	
-	public static void main(String[] args) {
-		loadCommands("com.myself");
-	}
 
 	public static void loadCommands(String basePackage) {
 		try {
@@ -74,7 +70,9 @@ public class CommandLoader {
 
 	private static void loadClass(String className, boolean isInitialized) {
 		try {
-			Class<?> cls = Class.forName(className, isInitialized, getClassloader());
+//			Class<?> cls = Class.forName(className, isInitialized, getClassloader());
+			Class<?> cls = getClassloader().loadClass(className);
+			
 			if (isChildOrImplOfClass(cls,Command.class)) {
 				System.out.println("laodClass " + cls.getName() + " success!");
 
@@ -87,9 +85,14 @@ public class CommandLoader {
 					if (field.isAnnotationPresent(CmdParam.class)) {
 						CmdParam cmdParam = field.getAnnotation(CmdParam.class);
 						CommandParam param = new CommandParam();
-						param.setEmpty(cmdParam.require());
+						param.setRequired(cmdParam.require());
 						param.setRegex(cmdParam.regex());
 						param.setParam(field.getName().toLowerCase());
+						
+						if(params.contains(param)){
+							System.out.println("command params duplicated ,"+command.getCommandKey()+" "+param.getParam());
+							throw new RuntimeException("command params duplicated ,"+command.getCommandKey()+" "+param.getParam());
+						}
 						params.add(param);
 					}
 				}

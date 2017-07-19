@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface CmdParam {
 	boolean require() default false;
-	String regex();
+	String regex() default "";
 }

@@ -6,7 +6,7 @@ import com.myself.hdap.server.deployment.DeployManager;
 
 public class DeplopyCommand extends Command{
 	
-	@CmdParam(require=true, regex = "")
+	@CmdParam
 	private String jar;
 
 	public void doCommand() {

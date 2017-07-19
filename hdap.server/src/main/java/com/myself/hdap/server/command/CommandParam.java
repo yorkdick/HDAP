@@ -1,9 +1,18 @@
 package com.myself.hdap.server.command;
 
 public class CommandParam {
-	public String param;
-	public String regex=".*";
-	public boolean isEmpty;
+	private String param;
+	private String regex=".*";
+	private boolean required;
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==null || ! (obj instanceof CommandParam)){
+			return false;
+		}
+		return this.getParam().equals(((CommandParam)obj).getParam());
+	}
 	
 	public String getParam() {
 		return param;
@@ -17,10 +26,10 @@ public class CommandParam {
 	public void setRegex(String regex) {
 		this.regex = regex;
 	}
-	public boolean isEmpty() {
-		return isEmpty;
+	public boolean isRequired() {
+		return required;
 	}
-	public void setEmpty(boolean isEmpty) {
-		this.isEmpty = isEmpty;
+	public void setRequired(boolean required) {
+		this.required = required;
 	}
 }
