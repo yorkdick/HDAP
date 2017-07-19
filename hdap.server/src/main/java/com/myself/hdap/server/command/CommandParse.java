@@ -45,7 +45,7 @@ public class CommandParse {
 		
 		List<CommandParam> cmdParams = cmdTmp.getParams();
 		
-		if(validatePrams(cmdParams,params,cmdTmp)){
+		if(!validatePrams(cmdParams,params,cmdTmp)){
 			return null;
 		}
 		
@@ -93,7 +93,7 @@ public class CommandParse {
 	}
 
 	private static Map<String, String> getParams(List<String> cmdStrs) {
-		error = true;
+		error = false;
 		
 		if(cmdStrs.size()<=1){
 			return null;
@@ -104,31 +104,42 @@ public class CommandParse {
 //		String dep
 		for(int i=1;i< cmdStrs.size();){
 			String param = cmdStrs.get(i);
-			if(!param.startsWith("--")){
-				error = false;
+			if(!param.startsWith("--") || getHSize(param)!=2){
+				error = true;
 				System.out.println("command param '"+param+"' format error, any param needs start with '--'");
 				return null;
 			}
 			String value = "";
 			if(i+1>=cmdStrs.size() || (value = cmdStrs.get(i+1)).startsWith("--")){
-				error = false;
+				error = true;
 				System.out.println("command param '"+param+"' has no value");
 				return null;
 			}
 			
 			value = value.replaceAll("\"", "");
 			if(params.containsKey(param)){
-				error = false;
+				error = true;
 				System.out.println("command param '"+param+"' is duplicated");
 				return null;
 			}
-			params.put(param.toLowerCase(), value);
+			params.put(param.substring(2).toLowerCase(), value);
 			i = i+2;
 		}
 		return params;
 	}
 
+	private static int getHSize(String param) {
+		int size=0;
+		for(int i = 0;i< param.length();i++) {
+			if(param.substring(i,i+1).equals("-"))
+				size++;
+		}
+		return size;
+	}
+
 	private static List<String> getStrs(String cmd) {
+		error = false;
+		
 		List<String> strs = new ArrayList<String>();
 		int start=0;
 		String tmp = "";
@@ -173,17 +184,17 @@ public class CommandParse {
 
 	private static boolean judgeEqual(String cmd,int start) {
 		if(start==0 || start==cmd.length()-1){
-			return false;
+			return true;
 		}
 		String pre = cmd.substring(0, start).trim();
 		String after = cmd.substring(start+1).trim();
 		if(pre.equals("") || pre.endsWith("=")){
-			return false;
+			return true;
 		}
 		if(after.equals("") || after.startsWith("=")){
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	private static void errorHandler(String str, int start) {

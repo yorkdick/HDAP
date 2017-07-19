@@ -21,8 +21,11 @@ public class CommandRepository {
 		if(commands.containsKey(command.getCommandKey())){
 			return;
 		}
+		
 		commands.put(command.getCommandKey(), command);
 		commandParams.put(command.getCommandKey(), params);
+		
+		System.out.println(" add command "+command.getCommandKey()+"{"+command.getParamNames()+"} success");
 	}
 	
 	public static Map<String,Command> getAllCommands() {

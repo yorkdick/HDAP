@@ -14,11 +14,11 @@ public class ServerStarter {
 		
 	}
 	
-	public static void start(){
+	public static void start() throws Exception{
 		starter.startServer();
 	}
 	
-	public synchronized void startServer(){
+	public synchronized void startServer() throws Exception{
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server starting ........");
 		
 		ContextInit.initCommand();

@@ -14,6 +14,6 @@ public class DeplopyCommand extends Command{
 	}
 
 	public String getCommandKey() {
-		return "delpoy";
+		return "deploy";
 	}
 }
