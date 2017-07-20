@@ -1,6 +1,6 @@
 package com.myself.hdap.server.deployment;
 
-import com.myself.hdap.server.context.HotDeployLoader;
+import com.myself.hdap.server.hotdeploy.HotDeployLoader;
 
 public class DeployManager {
 	public static void deploy(String path){
