@@ -163,7 +163,7 @@ public class CommandParse {
 					start = next+1;
 				}
 			}else if(str.equals("=")){
-				if(!judgeEqual(cmd,start)){
+				if(judgeEqual(cmd,start)){
 					errorHandler(str,start);
 					return null;
 				}else{

@@ -2,6 +2,7 @@ package com.myself.hdap.server.hotdeploy;
 
 import java.io.File;
 
+import com.myself.hdap.server.context.HotDeployClassLoader;
 import com.myself.hdap.server.util.FileUtil;
 
 public class HotDeployLoader {
@@ -18,17 +19,28 @@ public class HotDeployLoader {
 	}
 	
 	public void deployJar(String path) {
-		File jar = null ;
-		try {
-			jar = FileUtil.moveFile2Path(new File(path), deployPath);
-		} catch (Exception e) {
-			System.out.println(" deploy jar error ");
-			System.out.println(e.getMessage());
+		if(isDeployPath(path)){
+			File jar = null ;
+			try {
+				jar = FileUtil.moveJar2Path(new File(path), deployPath);
+				new HotDeployClassLoader(jar).loadJar();
+			} catch (Exception e) {
+				System.out.println(" deploy jar error ");
+				e.printStackTrace();
+			}
+//			System.out.println("deploy jar:"+path);
 		}
-		System.out.println("deploy jar:"+path);
 	}
 	
+	private boolean isDeployPath(String path) {
+		if(path.endsWith(".jar") || path.endsWith(".JAR")){
+			File file = new File(path);
+			return file.exists();
+		}
+		return false;
+	}
+
 	public void unDeployJar(String key) {
-		// TODO unDeployJar
+		HotDeployManager.getInstance().undePloy(key);
 	}
 }

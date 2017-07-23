@@ -5,6 +5,7 @@ import java.io.FileFilter;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -13,20 +14,24 @@ public class SimpleClassLoader {
 	
 	private ClassLoader loader;
 	private ClassHandler handler;
+	private Map<String,Class<?>> classes;
 	
 	public SimpleClassLoader(){
-		handler = null;
-		loader = ClassLoader.getSystemClassLoader();
+		this.handler = null;
+		this.loader = ClassLoader.getSystemClassLoader();
+		this.classes = null;
 	}
 	
 	public SimpleClassLoader(ClassHandler filter){
 		this.handler = filter;
 		this.loader = ClassLoader.getSystemClassLoader();
+		this.classes = null;
 	}
 	
 	public SimpleClassLoader(ClassLoader loader,ClassHandler filter){
 		this.handler = filter;
 		this.loader = loader;
+		this.classes = null;
 	}
 	
 	public void loadClassesByPackage(String basePackage) throws Exception {
@@ -67,6 +72,8 @@ public class SimpleClassLoader {
 	}
 
 	private void addClass(String packagePath, String packageName) throws Exception {
+		System.out.println("packagePath" + "  "+packageName);
+		
 		packagePath = resolvePath(packagePath);
 		packageName = resolvePackage(packageName);
 		
@@ -81,6 +88,9 @@ public class SimpleClassLoader {
 		
 		for(File file : files) {
 			String fileName = file.getName();
+			
+			System.out.println("fileName" + "  "+fileName);
+			
 			if(file.isFile()) {
 				String className = packageName+"."+fileName.substring(0, fileName.lastIndexOf("."));
 				loadClass(className);
@@ -93,11 +103,18 @@ public class SimpleClassLoader {
 	}
 
 	private void loadClass(String className) throws Exception {
+		System.out.println("loadClass "+className);
+		
 		Class<?> cls = loader.loadClass(className);
+		if(classes!=null) {
+			classes.put(cls.getName(), cls);
+		}
 //		System.out.println("laodClass " + cls.getName() + " success!");
 		if (handler != null && handler.filter(cls)) {
 			handler.handler(cls);
 		}
+		
+		System.out.println("loadClass "+className+" success");
 	}
 
 	private String resolvePackage(String basePackage) {
@@ -135,5 +152,13 @@ public class SimpleClassLoader {
 
 	public void setHandler(ClassHandler handler) {
 		this.handler = handler;
+	}
+
+	public Map<String, Class<?>> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(Map<String, Class<?>> classes) {
+		this.classes = classes;
 	}
 }

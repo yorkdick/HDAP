@@ -6,10 +6,14 @@ import java.lang.reflect.Parameter;
 public class DeployMethod {
 	private Method method;
 	private Object obj;
+	private String deployId;
+	private ClassLoader loader;
 	
-	public DeployMethod(Method method,Object obj){
+	public DeployMethod(String deployId,Method method,Object obj,ClassLoader loader){
 		this.method = method;
 		this.obj = obj;
+		this.deployId = deployId;
+		this.loader = loader;
 	}
 	
 	public void invoke(String[] args) {
@@ -39,10 +43,10 @@ public class DeployMethod {
 			}
 			Object[] arg = new Object[ps.length];
 			for(int i=0;i<ps.length;i++) {
-				if(ps[i].getType().isPrimitive()) {
+				if(ps[i].getType().isPrimitive() || ps[i].getType().equals(String.class)) {
 					arg[i]=valueOf(ps[i],args[i]);
 				}else {
-					throw new RuntimeException("resolve args erro , must be primitive");
+					throw new RuntimeException("resolve args erro , must be primitive or String");
 				}
 			}
 			return arg;
@@ -107,12 +111,36 @@ public class DeployMethod {
 				resolveParamerror(ps,cls);
 			}
 		}
+		if(cls.equals(String.class)) {
+			return str;
+		}
 		return null;
+	}
+	
+	public void unDeploy() {
+		this.method = null;
+		this.deployId = null;
+		this.obj = null;
+		this.loader = null;
 	}
 
 	private void resolveParamerror(Parameter ps,Class<?> cls) {
 		throw new RuntimeException("resolve args erro ,"+ps.getName()+" is "+cls.getName());
 	}
+
+	public Method getMethod() {
+		return method;
+	}
+
+	public Object getObj() {
+		return obj;
+	}
+
+	public String getDeployId() {
+		return deployId;
+	}
 	
-	
+	public ClassLoader getClassLoader() {
+		return loader;
+	}
 }

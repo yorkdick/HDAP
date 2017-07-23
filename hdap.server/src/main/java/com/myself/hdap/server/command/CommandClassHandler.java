@@ -22,7 +22,7 @@ public class CommandClassHandler implements ClassHandler{
 			if(ss.equals(cls)) {
 				return true;
 			}
-			ss = class1.getSuperclass();
+			ss = ss.getSuperclass(); 
 		}
 		return false;
 	}

@@ -1,14 +1,13 @@
 package com.myself.hdap.server.hotdeploy;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 public class DeployMement {
 	private ClassLoader loader;
 	private String deployId;
-	private Map<String,Method> deployMethods;
+	private Map<String,DeployMethod> deployMethods;
 	
-	public DeployMement( String deployId,ClassLoader loader,Map<String,Method> deployMethods){
+	public DeployMement( String deployId,ClassLoader loader,Map<String,DeployMethod> deployMethods){
 		this.deployId = deployId;
 		this.loader = loader;
 		this.deployMethods = deployMethods;
@@ -20,7 +19,7 @@ public class DeployMement {
 	public String getDeployId() {
 		return deployId;
 	}
-	public Map<String,Method> getDeployMethods() {
+	public Map<String,DeployMethod> getDeployMethods() {
 		return deployMethods;
 	}
 }
