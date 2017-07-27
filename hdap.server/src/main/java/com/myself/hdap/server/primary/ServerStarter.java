@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.myself.hdap.server.command.adapter.CommandAdapter;
 import com.myself.hdap.server.context.ContextInit;
+import com.myself.hdap.server.primary.socket.HDAPServerSocket;
 
 public class ServerStarter {
 	private final static ServerStarter starter = new ServerStarter();
@@ -27,7 +28,7 @@ public class ServerStarter {
 		ContextInit.initFunctions();
 		
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Init serverSocket ........");
-//		ContextInit.initFunctions();
+		HDAPServerSocket.startServerSocket();
 		
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server started  ........");
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server waiting for command  ........");

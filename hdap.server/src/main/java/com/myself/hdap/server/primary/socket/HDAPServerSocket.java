@@ -1,8 +1,8 @@
 package com.myself.hdap.server.primary.socket;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -16,37 +16,48 @@ public class HDAPServerSocket {
 	public static synchronized void startServerSocket() {
 		if (!started) {
 			started = true;
-			try {
-				final ServerSocket serverSocket = new ServerSocket(port);
-				ExecutorService st = Executors.newSingleThreadExecutor();
-				st.execute(new Runnable() {
-					@Override
-					public void run() {
+			ExecutorService st = Executors.newSingleThreadExecutor();
+			st.execute(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						final ServerSocket serverSocket = new ServerSocket(port);
+						System.out.println("Server listens to " +serverSocket.getInetAddress().getHostAddress()+":["+ port + "] success");
 						Socket socket = null;
+						BufferedReader br = null;
+						PrintWriter bw = null;
 						while (true) {
 							try {
 								socket = serverSocket.accept();
-								BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+								System.out.println("accept socket ");
+								br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+								bw = new PrintWriter(socket.getOutputStream());
 								String linestr = null;
-								while ((linestr = br.readLine()) != null) {
-									SocketParse.doSocketFunction(linestr);
+								if ((linestr = br.readLine()) != null) {
+									System.out.println("get line "+linestr);
+									boolean bool = SocketParse.doSocketFunction(linestr);
+									String result = String.valueOf(bool);
+									System.out.println("write result "+result);
+									bw.write(result);
+									bw.flush();
 								}
-							} catch (IOException e) {
-								try {
-									if (socket != null)
-										socket.close();
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								}
+							} catch (Exception e) {
 								e.printStackTrace();
+							}finally {
+								if(socket != null)
+									socket.close();
+								if(br != null)
+									br.close();
+								if(bw != null)
+									bw.close();
 							}
 						}
+					} catch (Exception e) {
+						System.out.println("Server listens to " + port + " failed");
+						e.printStackTrace();
 					}
-				});
-			} catch (Exception e) {
-				System.out.println("Server listens to " + port + " failed");
-				e.printStackTrace();
-			}
+				}
+			});
 		} else {
 			System.out.println("Server is listening to " + port + " already");
 		}

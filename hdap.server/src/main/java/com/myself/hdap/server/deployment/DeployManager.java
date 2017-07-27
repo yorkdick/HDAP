@@ -1,5 +1,6 @@
 package com.myself.hdap.server.deployment;
 
+import com.myself.hdap.server.deployment.hotdeploy.DeployMethod;
 import com.myself.hdap.server.deployment.hotdeploy.HotDeployLoader;
 import com.myself.hdap.server.deployment.hotdeploy.HotDeployManager;
 
@@ -26,10 +27,9 @@ public class DeployManager {
 	
 	public static void listDeployFunctions(){
 		int i = 0;
-		for(String key : HotDeployManager.getInstance().getDeploys().keySet()) {
-			for(String function : HotDeployManager.getInstance().getDeploys().get(key)) {
-				System.out.println("deployFunction"+(++i)+"\t"+key+"\t"+function);
-			}
+		for(String key : HotDeployManager.getInstance().getDeplyoMethods().keySet()) {
+			DeployMethod dm = HotDeployManager.getInstance().getDeplyoMethods().get(key);
+			System.out.println("deployFunction"+(++i)+"\t"+key+"\t"+dm.getMethod().getName());
 		}
 	}
 }
