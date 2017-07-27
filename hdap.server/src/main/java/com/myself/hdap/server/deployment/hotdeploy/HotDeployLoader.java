@@ -1,4 +1,4 @@
-package com.myself.hdap.server.hotdeploy;
+package com.myself.hdap.server.deployment.hotdeploy;
 
 import java.io.File;
 
@@ -8,7 +8,7 @@ import com.myself.hdap.server.util.FileUtil;
 public class HotDeployLoader {
 	private final static HotDeployLoader hdl = new HotDeployLoader();
 	
-	private final static String deployPath = "deploy";
+	public final static String deployPath = "deploy";
 	
 	private HotDeployLoader() {
 		

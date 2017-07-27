@@ -1,4 +1,4 @@
-package com.myself.hdap.server.hotdeploy;
+package com.myself.hdap.server.deployment.hotdeploy;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;

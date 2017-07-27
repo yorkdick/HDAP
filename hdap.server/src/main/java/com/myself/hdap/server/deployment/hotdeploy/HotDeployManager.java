@@ -1,8 +1,12 @@
-package com.myself.hdap.server.hotdeploy;
+package com.myself.hdap.server.deployment.hotdeploy;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.myself.hdap.server.context.HotDeployClassLoader;
 
 public class HotDeployManager {
 	private final static HotDeployManager hdm = new HotDeployManager();
@@ -49,6 +53,30 @@ public class HotDeployManager {
 			
 		}else {
 			System.out.println("undeploy failed , "+deployed+" not exits ");
+		}
+	}
+	
+
+	public void initFunctions(){
+		String classpPath = ClassLoader.getSystemResource("").getPath();
+		String cpath = new File(classpPath).getParent()+File.separator+HotDeployLoader.deployPath;
+		File cfile = new File(cpath);
+		if(cfile.isDirectory()){
+			File[] jars = cfile.listFiles(new FileFilter() {
+				@Override
+				public boolean accept(File file) {
+					return file.isFile() && file.getName().endsWith(".jar");
+				}
+			});
+			for(File jar : jars){
+				try {
+					new HotDeployClassLoader(jar).loadJar();
+					System.out.println(" deploy jar "+jar.getName()+" success ");
+				} catch (Exception e) {
+					System.out.println(" deploy jar "+jar.getName()+" error ");
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }

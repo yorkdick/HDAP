@@ -1,8 +1,8 @@
-package com.myself.hdap.server;
+package com.myself.hdap.server.primary;
 
 import java.util.Scanner;
 
-import com.myself.hdap.server.adapter.CommandAdapter;
+import com.myself.hdap.server.command.adapter.CommandAdapter;
 import com.myself.hdap.server.context.ContextInit;
 
 public class ServerStarter {
@@ -20,8 +20,14 @@ public class ServerStarter {
 	
 	public synchronized void startServer() throws Exception{
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server starting ........");
-		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Init system command ........");
 		ContextInit.initCommand();
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Init functions ........");
+		ContextInit.initFunctions();
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Init serverSocket ........");
+//		ContextInit.initFunctions();
 		
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server started  ........");
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server waiting for command  ........");

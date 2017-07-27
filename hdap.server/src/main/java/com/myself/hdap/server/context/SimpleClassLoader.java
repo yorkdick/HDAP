@@ -72,7 +72,7 @@ public class SimpleClassLoader {
 	}
 
 	private void addClass(String packagePath, String packageName) throws Exception {
-		System.out.println("packagePath" + "  "+packageName);
+//		System.out.println("packagePath" + "  "+packageName);
 		
 		packagePath = resolvePath(packagePath);
 		packageName = resolvePackage(packageName);
@@ -89,7 +89,7 @@ public class SimpleClassLoader {
 		for(File file : files) {
 			String fileName = file.getName();
 			
-			System.out.println("fileName" + "  "+fileName);
+//			System.out.println("fileName" + "  "+fileName);
 			
 			if(file.isFile()) {
 				String className = packageName+"."+fileName.substring(0, fileName.lastIndexOf("."));
@@ -103,7 +103,7 @@ public class SimpleClassLoader {
 	}
 
 	private void loadClass(String className) throws Exception {
-		System.out.println("loadClass "+className);
+//		System.out.println("loadClass "+className);
 		
 		Class<?> cls = loader.loadClass(className);
 		if(classes!=null) {
@@ -114,7 +114,7 @@ public class SimpleClassLoader {
 			handler.handler(cls);
 		}
 		
-		System.out.println("loadClass "+className+" success");
+//		System.out.println("loadClass "+className+" success");
 	}
 
 	private String resolvePackage(String basePackage) {

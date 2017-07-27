@@ -1,4 +1,4 @@
-package com.myself.hdap.server.adapter;
+package com.myself.hdap.server.command.adapter;
 
 import com.myself.hdap.server.command.Command;
 import com.myself.hdap.server.command.CommandParse;

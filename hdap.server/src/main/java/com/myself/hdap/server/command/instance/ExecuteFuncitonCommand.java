@@ -1,8 +1,8 @@
-package com.myself.hdap.server.command.instance.deploy;
+package com.myself.hdap.server.command.instance;
 
 import com.myself.hdap.server.annotation.CmdParam;
 import com.myself.hdap.server.command.Command;
-import com.myself.hdap.server.hotdeploy.HotDeployManager;
+import com.myself.hdap.server.deployment.hotdeploy.HotDeployManager;
 
 public class ExecuteFuncitonCommand extends Command{
 

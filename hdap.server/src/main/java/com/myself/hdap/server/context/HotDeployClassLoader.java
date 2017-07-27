@@ -6,26 +6,26 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.JarURLConnection;
-import java.net.MalformedURLException;
+//import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLClassLoader;
+//import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
+//import java.util.Enumeration;
+//import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+//import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 
 import com.myself.hdap.server.annotation.FunctionService;
 import com.myself.hdap.server.annotation.ServerFunction;
-import com.myself.hdap.server.hotdeploy.DeployMethod;
-import com.myself.hdap.server.hotdeploy.HotDeployManager;
+import com.myself.hdap.server.deployment.hotdeploy.DeployMethod;
+import com.myself.hdap.server.deployment.hotdeploy.HotDeployManager;
 
 public class HotDeployClassLoader extends ClassLoader{
 	private SimpleClassLoader scl ;
-	private Map<String,Class<?>> classes = new HashMap<String,Class<?>>();
+//	private Map<String,Class<?>> classes = new HashMap<String,Class<?>>();
 	private String deployId;
 	private File jar;
 	
