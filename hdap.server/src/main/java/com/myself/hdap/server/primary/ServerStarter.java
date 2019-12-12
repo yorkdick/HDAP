@@ -33,21 +33,24 @@ public class ServerStarter {
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server started  ........");
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server waiting for command  ........");
 
-		Scanner sacnner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		String cmd = null;
 		
-		cmd = getCommand(sacnner);
+		cmd = getCommand(scanner);
 		
 		while(cmd !=null && !cmd.equals(EXIT)){
 			CommandAdapter.doCommand(cmd);
 			
-			cmd = getCommand(sacnner);
+			cmd = getCommand(scanner);
 		}
-		sacnner.close();
+		if(cmd.endsWith(EXIT)){
+			System.exit(0);
+		}
+		scanner.close();
 	}
 
-	private String getCommand(Scanner sacnner) {
-		System.out.print("cmd>");
-		return sacnner.nextLine().trim();
+	private String getCommand(Scanner scanner) {
+//		System.out.print("cmd>");
+		return scanner.nextLine().trim();
 	}
 }

@@ -1,4 +1,4 @@
-package com.myself.hdap.server;
+package com.myself.hdap.server.function;
 
 import com.myself.hdap.server.annotation.FunctionService;
 import com.myself.hdap.server.annotation.ServerFunction;

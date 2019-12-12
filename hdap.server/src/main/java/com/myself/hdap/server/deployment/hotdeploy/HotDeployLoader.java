@@ -23,7 +23,7 @@ public class HotDeployLoader {
 			File jar = null ;
 			try {
 				jar = FileUtil.moveJar2Path(new File(path), deployPath);
-				new HotDeployClassLoader(jar).loadJar();
+				HotDeployClassLoader.getLoader(jar);
 			} catch (Exception e) {
 				System.out.println(" deploy jar error ");
 				e.printStackTrace();
@@ -41,6 +41,6 @@ public class HotDeployLoader {
 	}
 
 	public void unDeployJar(String key) {
-		HotDeployManager.getInstance().undePloy(key);
+		HotDeployManager.getInstance().unDeploy(key);
 	}
 }

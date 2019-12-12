@@ -1,21 +1,29 @@
 package com.myself.hdap.server.deployment.hotdeploy;
 
+import com.myself.hdap.common.CommonInstant;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class DeployMethod {
 	private Method method;
 	private Object obj;
 	private String deployId;
+	private String jarPath;
 	private ClassLoader loader;
+	private String primaryKey;
 	
-	public DeployMethod(String deployId,Method method,Object obj,ClassLoader loader){
+	public DeployMethod(String jarPath,String deployId,Method method,Object obj,ClassLoader loader){
 		this.method = method;
 		this.obj = obj;
 		this.deployId = deployId;
+		this.jarPath = jarPath;
 		this.loader = loader;
+		setPrimaryKey();
 	}
-	
+
 	public void invoke(String[] args) {
 		try {
 			Object[] args2 = resolve(args);
@@ -122,9 +130,35 @@ public class DeployMethod {
 		this.deployId = null;
 		this.obj = null;
 		this.loader = null;
+		this.jarPath = null;
+		this.primaryKey = null;
 	}
 
-	private void resolveParamerror(Parameter ps,Class<?> cls) {
+	private void setPrimaryKey() {
+		primaryKey = CommonInstant.getDeployMethodId(deployId,method);
+	}
+
+	@Override
+	public int hashCode() {
+		return primaryKey.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean bool = super.equals(obj);
+		if(bool){
+			return bool;
+		}else{
+			return obj!=null && obj instanceof DeployMethod && this.toString().equals(obj.toString());
+		}
+	}
+
+	@Override
+	public String toString() {
+		return primaryKey;
+	}
+
+	private void resolveParamerror(Parameter ps, Class<?> cls) {
 		throw new RuntimeException("resolve args erro ,"+ps.getName()+" is "+cls.getName());
 	}
 
@@ -140,7 +174,11 @@ public class DeployMethod {
 		return deployId;
 	}
 	
-	public ClassLoader getClassLoader() {
+	public String getJarPath() {
+		return jarPath;
+	}
+
+	public ClassLoader getLoader() {
 		return loader;
 	}
 }

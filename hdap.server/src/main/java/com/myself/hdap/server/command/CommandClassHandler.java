@@ -30,7 +30,7 @@ public class CommandClassHandler implements ClassHandler{
 	public void handler(Class<?> cls) throws Exception  {
 		Command command = (Command) cls.newInstance();
 
-		List<CommandParam> params = new ArrayList<CommandParam>();
+		List<CommandParam> params = new ArrayList<>();
 
 		Field[] fields = cls.getDeclaredFields();
 		for (Field field : fields) {

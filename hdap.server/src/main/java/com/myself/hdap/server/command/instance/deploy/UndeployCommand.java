@@ -7,10 +7,10 @@ import com.myself.hdap.server.deployment.DeployManager;
 public class UndeployCommand extends Command{
 
 	@CmdParam(require=true)
-	private String key;
+	private String jar;
 	
 	public void doCommand() {
-		DeployManager.unDeploy(key);
+		DeployManager.unDeploy(jar);
 	}
 
 	public String getCommandKey() {

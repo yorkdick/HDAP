@@ -4,7 +4,7 @@ import com.myself.hdap.server.annotation.CmdParam;
 import com.myself.hdap.server.command.Command;
 import com.myself.hdap.server.deployment.hotdeploy.HotDeployManager;
 
-public class ExecuteFuncitonCommand extends Command{
+public class ExecuteFunctionCommand extends Command{
 
 	@CmdParam(require=true)
 	String functionId;
@@ -14,12 +14,12 @@ public class ExecuteFuncitonCommand extends Command{
 	
 	public void doCommand() {
 		try {
-			if(HotDeployManager.getInstance().getDeplyoMethods().containsKey(functionId)) {
+			if(HotDeployManager.getInstance().getDeployMethods().containsKey(functionId)) {
 				String[] args = null;
 				if(arguments!=null && !arguments.trim().equals("")) {
 					args = arguments.split(",");
 				}
-				HotDeployManager.getInstance().getDeployMethod(functionId).invoke(args);
+				HotDeployManager.getInstance().getDeployMethods().get(functionId).invoke(args);
 				System.out.println("function "+functionId+" execute success");
 			}else {
 				System.out.println("function "+functionId+" not exits");

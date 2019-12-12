@@ -9,9 +9,9 @@ import java.util.Date;
 public class FileUtil {
 	
 	public static File moveJar2Path(File file,String path) throws Exception {
-		String classpPath = ClassLoader.getSystemResource("").getPath();
+		String classPath = ClassLoader.getSystemResource("").getPath();
 		
-		File cfile = new File(classpPath);
+		File cfile = new File(classPath);
 		
 		String fileName = file.getName().substring(0,file.getName().lastIndexOf("."));
 		String sub = file.getName().substring(file.getName().lastIndexOf(".")+1);

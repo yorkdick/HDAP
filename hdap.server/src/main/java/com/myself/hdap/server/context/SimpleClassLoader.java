@@ -14,24 +14,20 @@ public class SimpleClassLoader {
 	
 	private ClassLoader loader;
 	private ClassHandler handler;
-	private Map<String,Class<?>> classes;
-	
+
 	public SimpleClassLoader(){
 		this.handler = null;
 		this.loader = ClassLoader.getSystemClassLoader();
-		this.classes = null;
 	}
 	
 	public SimpleClassLoader(ClassHandler filter){
 		this.handler = filter;
 		this.loader = ClassLoader.getSystemClassLoader();
-		this.classes = null;
 	}
 	
 	public SimpleClassLoader(ClassLoader loader,ClassHandler filter){
 		this.handler = filter;
 		this.loader = loader;
-		this.classes = null;
 	}
 	
 	public void loadClassesByPackage(String basePackage) throws Exception {
@@ -106,9 +102,6 @@ public class SimpleClassLoader {
 //		System.out.println("loadClass "+className);
 		
 		Class<?> cls = loader.loadClass(className);
-		if(classes!=null) {
-			classes.put(cls.getName(), cls);
-		}
 //		System.out.println("laodClass " + cls.getName() + " success!");
 		if (handler != null && handler.filter(cls)) {
 			handler.handler(cls);
@@ -129,9 +122,9 @@ public class SimpleClassLoader {
 	}
 
 	private String resolvePath(String basePath) {
-		if(basePath.startsWith("/")) {
-			basePath = basePath.substring(1);
-		}
+//		if(basePath.startsWith("/")) {
+//			basePath = basePath.substring(1);
+//		}
 		if(!basePath.endsWith("/")) {
 			basePath = basePath+"/";
 		}
@@ -154,11 +147,4 @@ public class SimpleClassLoader {
 		this.handler = handler;
 	}
 
-	public Map<String, Class<?>> getClasses() {
-		return classes;
-	}
-
-	public void setClasses(Map<String, Class<?>> classes) {
-		this.classes = classes;
-	}
 }
