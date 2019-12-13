@@ -21,3 +21,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 *.iml
+hdap/hdap.client/target
+hdap/hdap.common/target
+hdap/hdap.internalService/target
+hdap/hdap.server/target
