@@ -16,7 +16,9 @@ public class ContextInit {
 	}
 	
 	public static void initFunctions() throws Exception {
+		//加载系统fucntion
 		CommandLoader.loadFunctions(BASE_PACKAGE);
+		//加载已经deploy的jar
 		HotDeployManager.getInstance().initDeployments();
 	}
 }

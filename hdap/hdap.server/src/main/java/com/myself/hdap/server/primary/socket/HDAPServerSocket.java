@@ -64,6 +64,13 @@ public class HDAPServerSocket {
 									e.printStackTrace();
 								}finally {
 									connectionSize.decrementAndGet();
+									if(socket!=null && !socket.isClosed()){
+										try {
+											socket.close();
+										} catch (IOException ex) {
+											ex.printStackTrace();
+										}
+									}
 								}
 							});
 						}catch (Exception e){

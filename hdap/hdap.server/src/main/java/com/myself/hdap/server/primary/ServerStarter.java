@@ -22,6 +22,7 @@ public class ServerStarter {
 	public synchronized void startServer() throws Exception{
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Server starting ........");
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Init system command ........");
+		//遍历指定包路劲下所有calss，把继承了Command的类存入仓库中
 		ContextInit.initCommand();
 		
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Init functions ........");
